@@ -68,7 +68,7 @@ parsePicturesUrls (const string& webpage_txt, vector<string>& pictures_urls_list
 
     // just parse the toptip
     static const string keyword_toptip_begin("<b>本頁主題:</b>");
-    static const string keyword_toptip_end("[樓主]</a></span>");
+    static const string keyword_toptip_end("回樓主</a></span>");
     const pair<string, size_t>& pair_tmp = fetchStringBetweenKeywords( webpage_txt,
                                                                        keyword_toptip_begin,
                                                                        keyword_toptip_end );
