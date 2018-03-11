@@ -19,7 +19,7 @@ class Webpage
                            const unsigned timeout_second = 16,
                            const unsigned retry_times = 2,
                            const unsigned retry_sleep_second = 4,
-                           const string& user_agent = "Mozilla/5.0 (X11; Linux i686; rv:30.0) Gecko/20100101 Firefox/30.0",
+                           const string& user_agent = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:58.0) Gecko/20100101 Firefox/58.0",
                            const string& post_cookies = "",
                            const vector<pair<string, string>>& post_sections_list = vector<pair<string, string>>(),
                            bool b_redirct = true );

@@ -26,7 +26,6 @@ parsePostMultiSections ( const string& webpage_txt,
              << "\"" << keyword_ref_section_end << "\"" << endl;
         return(false);
     }
-    post_sections_list.push_back(make_pair("ref", ref_content));
     const auto keyword_ref_section_end_pos = pair_tmp.second;
 
     // parse the reff section
@@ -43,6 +42,7 @@ parsePostMultiSections ( const string& webpage_txt,
         return(false);
     }
     post_sections_list.push_back(make_pair("reff", reff_content));
+    post_sections_list.push_back(make_pair("ref", ref_content));
 
 
     return(true);

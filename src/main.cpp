@@ -251,6 +251,8 @@ getPortalUrls (string& caoliu_portal_url, string& aicheng_portal_url)
 //#endif
 }
 
+bool is_aicheng;
+
 int
 main (int argc, char* argv[])
 {

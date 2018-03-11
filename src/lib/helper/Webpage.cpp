@@ -19,7 +19,7 @@
 
 
 using namespace std;
-
+extern bool is_aicheng;
 
 static bool
 checkErrLibcurl (const CURLcode curl_code, const char* libcurl_err_info, bool b_exit = false, bool b_show_err_info = false)
@@ -582,6 +582,10 @@ Webpage::download_ ( const string& raw_url,
 bool
 Webpage::setMultiPostSectionsList (const vector<pair<string, string>>& post_sections_list)
 {
+    if (!::is_aicheng)
+    {
+        return(true);
+    }
     struct curl_httppost* p_first_section = nullptr;
     struct curl_httppost* p_last_section = nullptr;
 
@@ -602,6 +606,7 @@ Webpage::setMultiPostSectionsList (const vector<pair<string, string>>& post_sect
     }
 
 
+
     return(true);
 }
 
@@ -617,15 +622,30 @@ Webpage::submitMultiPost ( const string& url,
     if (!setMultiPostSectionsList(post_sections_list)) {
         return(false);
     }
+    if (::is_aicheng)
+    {
+        bool b_success = download_(url, filename, url_, timeout_second, retry_times, retry_sleep_second);
+        // TODO. reset CURLOPT_HTTPPOST, are you sure it works?
+        static struct curl_httppost empty_httppost;
+        curl_easy_setopt(p_curl_, CURLOPT_HTTPPOST, &empty_httppost);
+        return(b_success);
 
-    bool b_success = download_(url, filename, url_, timeout_second, retry_times, retry_sleep_second);
+    } else {
 
-    // TODO. reset CURLOPT_HTTPPOST, are you sure it works?
-    static struct curl_httppost empty_httppost;
-    curl_easy_setopt(p_curl_, CURLOPT_HTTPPOST, &empty_httppost);
+        string forge_url = url + "\?";
+        for (const auto& e : post_sections_list) {
+            forge_url += e.first;
+            forge_url += "=";
+            forge_url += e.second;
+            forge_url += "&";
+        }
+        forge_url.erase(forge_url.end()-1);
+        // cout << forge_url << endl;
+        bool b_success = download_(forge_url, filename, url_, timeout_second, retry_times, retry_sleep_second);
+        curl_easy_setopt(p_curl_, CURLOPT_HTTPGET, 1L);
+        return(b_success);
 
-
-    return(b_success);
+    } 
 }
 
 const string&
