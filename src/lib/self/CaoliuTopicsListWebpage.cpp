@@ -17,7 +17,7 @@ parseTitlesAndUrls ( const string& webpage_txt,
     const unsigned size_back = titles_and_urls_list.size();
 
     size_t keyword_topic_url_begin_pos = 0, keyword_topic_url_end_pos = 0;
-    keyword_topic_url_begin_pos = webpage_txt.find("普通主題");
+    keyword_topic_url_begin_pos = webpage_txt.find("普通主題</td>");
     if (string::npos == keyword_topic_url_begin_pos) {
         keyword_topic_url_begin_pos = 0;
     }

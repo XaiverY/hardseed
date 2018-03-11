@@ -42,6 +42,7 @@ parsePicturesUrlsHelper ( const string& webpage_txt,
                                                                   // >>>>
                                                                   "005uMz33gw1eh3a1r6ak0j30d005zt98.jpg",
                                                                   "005uMz33gw1egsm41zq6qj30f80b4gm9.jpg",
+                                                                  ".gif",
                                                                   // <<<<
                                                                 };
         for (const auto& e : ignore_urls_keywords_list) {
