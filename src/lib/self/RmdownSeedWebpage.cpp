@@ -14,7 +14,7 @@ parsePostMultiSections ( const string& webpage_txt,
                          vector<pair<string, string>>& post_sections_list ) 
 {
     // parse the ref section
-    static const string& keyword_ref_section_begin("<INPUT size=58 name=\"ref\" value=\"");
+    static const string& keyword_ref_section_begin("<INPUT TYPE=\"hidden\" name=\"ref\" value=\"");
     static const string& keyword_ref_section_end("\"");
     const pair<string, size_t>& pair_tmp = fetchStringBetweenKeywords( webpage_txt,
                                                                        keyword_ref_section_begin,
@@ -30,12 +30,11 @@ parsePostMultiSections ( const string& webpage_txt,
     const auto keyword_ref_section_end_pos = pair_tmp.second;
 
     // parse the reff section
-    static const string& keyword_reff_section_begin("value=\"");
+    static const string& keyword_reff_section_begin("NAME=\"reff\" value=\"");
     static const string& keyword_reff_section_end("\"");
     const pair<string, size_t>& pair_tmp2 = fetchStringBetweenKeywords( webpage_txt,
                                                                        keyword_reff_section_begin,
-                                                                       keyword_reff_section_end,
-                                                                       keyword_ref_section_end_pos );
+                                                                       keyword_reff_section_end);
     const string& reff_content = pair_tmp2.first;
     if (reff_content.empty()) {
         cerr << "WARNING! parsePostMultiSections() CANNOT find the keyword "
